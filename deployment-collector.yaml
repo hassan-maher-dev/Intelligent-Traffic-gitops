@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic-collector-deployment
+  namespace: traffic-app-ns
+  labels:
+    app: traffic-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traffic-collector
+  template:
+    metadata:
+      labels:
+        app: traffic-collector
+    spec:
+      containers:
+      - name: collector
+        image: hassanmaher2001/traffic-collector:1
+        envFrom:
+        - configMapRef:
+            name: traffic-app-config

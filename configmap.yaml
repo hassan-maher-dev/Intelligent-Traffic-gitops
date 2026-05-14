@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traffic-app-config
+  namespace: traffic-app-ns
+data:
+  FLASK_ENV: "production"
+  # The internal URL (service name) that the Collector will use to communicate with the Dashboard.
+  DASHBOARD_URL: "http://traffic-dashboard-service:80/api/data"

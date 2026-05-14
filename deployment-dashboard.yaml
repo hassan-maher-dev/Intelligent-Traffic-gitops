@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic-dashboard-deployment
+  namespace: traffic-app-ns
+  labels:
+    app: traffic-dashboard
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: traffic-dashboard
+  template:
+    metadata:
+      labels:
+        app: traffic-dashboard
+    spec:
+      containers:
+      - name: dashboard
+        image: hassanmaher2001/traffic-dashboard:1
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: traffic-app-config

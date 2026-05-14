@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring-stack
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # الرابط الرسمي للـ Helm Charts بتاعة Prometheus
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: 61.3.2 # يُفضل تثبيت الإصدار لضمان الاستقرار
+    helm:
+      # هنا بنحط كل الـ Values اللي كنا بنكتبها في واجهة أرجو
+      values: |
+        grafana:
+          adminPassword: "admin123" # الباسورد السهل اللي طلبته
+          service:
+            type: ClusterIP # التعديل هنا: خدمة داخلية مجانية
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring # الـ Namespace اللي هينزل فيه
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true # خليه ينشئ الـ Namespace لو مش موجود
+    - ServerSideApply=true # السطر ده عشان يحل مشكلة الـ Too Long اللي ظهرتلك

@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: traffic-app-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring-stack # It must match the same name as the Prometheus Helm release.
+spec:
+  groups:
+  - name: traffic.rules
+    rules:
+    - alert: TrafficDashboardDown
+      expr: absent(up{job="traffic-dashboard-service"})
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Traffic Dashboard is down"
+        description: "The traffic dashboard service has been down for more than 1 minute."
