@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: dashboard
-        image: hassanmaher2001/traffic-dashboard:1
+        image: hassanmaher2001/traffic-dashboard:4
         ports:
         - containerPort: 5000
         envFrom:
