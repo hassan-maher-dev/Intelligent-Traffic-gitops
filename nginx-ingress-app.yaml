@@ -9,6 +9,19 @@ spec:
     chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx
     targetRevision: 4.10.1
+    helm:
+      values: |
+        controller:
+          service:
+            annotations:
+              # الـ ARN الجديد الخاص بـ شهادة مشروع إشارة المرور الذكية
+              service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:325087564752:certificate/bda95064-c5e2-4bca-ac11-e44ff2da4f1c"
+              # توجيه الترافيك بعد فك التشفير كـ HTTP داخلياً
+              service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+              # فتح وتفعيل بورت الـ HTTPS على الـ Load Balancer
+              service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+            targetPorts:
+              https: http
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
