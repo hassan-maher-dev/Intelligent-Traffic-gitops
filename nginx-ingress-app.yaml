@@ -14,11 +14,14 @@ spec:
         controller:
           service:
             annotations:
-              # الـ ARN الجديد الخاص بـ شهادة مشروع إشارة المرور الذكية
+
+              # New ACM certificate ARN for the Intelligent Traffic Management project
               service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:325087564752:certificate/bda95064-c5e2-4bca-ac11-e44ff2da4f1c"
-              # توجيه الترافيك بعد فك التشفير كـ HTTP داخلياً
+
+              # Forward traffic internally over HTTP after TLS termination
               service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
-              # فتح وتفعيل بورت الـ HTTPS على الـ Load Balancer
+
+              # Enable the HTTPS listener on the Load Balancer
               service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
             targetPorts:
               https: http
