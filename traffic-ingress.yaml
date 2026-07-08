@@ -8,20 +8,9 @@ metadata:
 spec:
   rules:
 
-  # First rule: (without host header)
-  #This will catch any traffic coming from the long AWS URL (ELB) or any unknown/unrecognized host
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: traffic-dashboard-service
-            port:
-              number: 80
 
-  #  Second rule: this one is for you when using the fake domain to bypass the firewall
-  - host: traffic.aws-internal.com
+  #  Second rule: this one is for you when using the domain 
+  - host: smarttraffic.hassanmaher.tech
     http:
       paths:
       - path: /
