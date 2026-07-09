@@ -7,9 +7,6 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-
-
-  #  Second rule: this one is for you when using the domain 
   - host: smarttraffic.hassanmaher.tech
     http:
       paths:
