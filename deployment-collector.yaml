@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: collector
-        image: hassanmaher2001/traffic-collector:4
+        image: hassanmaher2001/traffic-collector:5
         envFrom:
         - configMapRef:
             name: traffic-app-config
